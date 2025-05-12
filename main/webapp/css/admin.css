@@ -1,0 +1,702 @@
+/* General Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #2c3e50;
+    color: #fff;
+    border-bottom: 4px solid #e74c3c;
+}
+
+.dashboard-container h1 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.button-container {
+    margin-top: 10px;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin: 5px;
+    color: #fff;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+    background-color: #c0392b;
+}
+
+/* Content Container */
+.content-container {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 80%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Incident Content Box */
+#incidentContent {
+    max-height: 400px; /* Set a maximum height for the box */
+    overflow-y: auto; /* Add a vertical scrollbar if content exceeds the height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+/* Form Container */
+.form-container {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #2c3e50;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+form input, form textarea, form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form input[readonly], form textarea[readonly] {
+    background-color: #e9ecef;
+    color: #6c757d;
+}
+
+form button {
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #2c3e50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #34495e;
+}
+/* Styling for Select Button */
+button.select-button {
+    background-color: #e74c3c;
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button.select-button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+button.select-button:active {
+    background-color: #1f5f8d; /* Even darker blue on click */
+    transform: scale(0.95); /* Slight shrink effect */
+}
+
+.message-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+/* Statistics Container */
+#statistics-container {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 900px;
+    text-align: center;
+}
+
+/* Heading */
+#statistics-container h2 {
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Chart Containers */
+#statistics-container > div {
+    margin-bottom: 20px;
+    width: 90%;
+    height: 300px;
+    display: inline-block;
+}
+
+.incident-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.incident-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.incident-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.incident-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.incident-card p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.accept-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.accept-btn:hover {
+    background-color: #0056b3;
+}
+
+.no-incidents {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #999;
+    margin-top: 20px;
+}
+
+/* Container Styling */
+.content-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9fafb; /* Light gray background */
+    border: 1px solid #ddd; /* Border for the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Incident List Styling */
+.incident-list {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff; /* White background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Light shadow */
+}
+
+/* Volunteer Content Styling */
+.volunteer-content {
+    padding: 15px;
+    background-color: #fff; /* White background */
+    border: 1px solid #e0e0e0; /* Light border */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Light shadow */
+}
+
+/* Placeholder Styling */
+.placeholder {
+    text-align: center;
+    font-size: 16px;
+    color: #6b7280; /* Neutral gray */
+    margin-top: 20px;
+}
+
+/* Headings Styling (Optional if you have headings) */
+.content-container h1, .content-container h2, .content-container h3 {
+    font-family: 'Arial', sans-serif;
+    color: #1f2937; /* Dark gray for headings */
+    margin-bottom: 15px;
+}
+
+/* General table styling */
+.incident-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: #f9fafb; /* Light background for the table */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Header styling */
+.incident-table thead tr {
+    background-color: #4a90e2; /* Blue header */
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.incident-table th,
+.incident-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd; /* Subtle border for rows */
+}
+
+/* Row hover effect */
+.incident-table tbody tr:hover {
+    background-color: #f1f5f9; /* Light gray on hover */
+}
+
+/* Button styling */
+.select-button {
+    background-color: #10b981; /* Green button */
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.select-button:hover {
+    background-color: #059669; /* Darker green on hover */
+}
+
+/* Alternate row colors */
+.incident-table tbody tr:nth-child(even) {
+    background-color: #f9fafb; /* Slightly different background for even rows */
+}
+
+/* Ensure the container does not overflow */
+.table-container {
+    max-width: 100%; /* Set the max width to fit the container */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    margin: 20px 0; /* Add spacing around the table */
+    padding: 10px; /* Add padding inside the scroll area */
+    background-color: #ffffff; /* Optional: Set a white background */
+    border-radius: 8px; /* Optional: Rounded corners for aesthetics */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow for container */
+}
+
+/* Improve table layout within scrollable area */
+.table-container table {
+    min-width: 1000px; /* Set a minimum width for large tables */
+    border-spacing: 0; /* Remove spacing between table cells */
+}
+
+/* Responsive container */
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Container for the message form */
+#volunteerMessageFormContainer {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Header styling */
+#volunteerMessageFormContainer h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Form groups for spacing and layout */
+#volunteerMessageForm label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+#volunteerMessageForm input,
+#volunteerMessageForm textarea,
+#volunteerMessageForm select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+/* Focus state for inputs */
+#volunteerMessageForm input:focus,
+#volunteerMessageForm textarea:focus,
+#volunteerMessageForm select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button styling */
+#volunteerMessageForm button {
+    display: block;
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#volunteerMessageForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Textarea styling */
+#volunteerMessageForm textarea {
+    resize: vertical;
+}
+
+/* Add some space between elements */
+#volunteerMessageFormContainer form > * {
+    margin-bottom: 15px;
+}
+
+
+.message-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.message-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-item p {
+    margin: 4px 0;
+    font-size: 14px;
+}
+
+.message-item strong {
+    color: #333;
+}
+
+#volunteerMessages {
+    background-color: #f9f9f9; /* Light background for distinction */
+    padding: 1rem; /* Add padding around the messages */
+    border: 1px solid #ddd; /* Optional border */
+    border-radius: 8px; /* Rounded corners */
+    margin-bottom: 1rem; /* Space below the messages */
+    overflow-y: auto; /* Scroll if content exceeds the height */
+    max-height: 300px; /* Limit the height of the messages container */
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.history-table th, .history-table td {
+    border: 1px solid #ddd;
+    padding: 0.8rem;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.history-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.history-table tr:hover {
+    background-color: #ddd;
+}
+
+/* Simple Footer Styling */
+.footer-simple {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 2px solid #e74c3c;
+}
+
+.footer-simple a {
+    color: #e74c3c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-simple a:hover {
+    text-decoration: underline;
+}
+
+/* User Content Container */
+#userContent {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Allow horizontal scrolling for wide tables */
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    text-align: left;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Header */
+table thead {
+    background-color: #2c3e50;
+    color: #fff;
+}
+
+table th {
+    padding: 12px 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 1px solid #ddd;
+}
+
+/* Table Rows */
+table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #2c3e50;
+}
+
+/* Table Cells */
+table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Select Button */
+.select-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.select-button:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table, table tbody, table tr, table td {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
+
+/* Incident Form Styling */
+#incidentFormContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    display: none;
+}
+
+#incidentFormContainer h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+#incidentFormContainer form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#incidentFormContainer form label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+#incidentFormContainer form input,
+#incidentFormContainer form select,
+#incidentFormContainer form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#incidentFormContainer form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #e74c3c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#incidentFormContainer form button:hover {
+    background-color: #c0392b;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .content-container, .form-container {
+        max-width: 95%;
+    }
+
+    .dashboard-container h1 {
+        font-size: 2rem;
+    }
+
+    form button {
+        font-size: 0.9rem;
+    }
+}

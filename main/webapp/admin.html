@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin page</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/script.js" defer></script>
+    </head>
+<body>
+    <div class="dashboard-container">
+        <h1>Admin Dashboard</h1>
+        <div class="button-container">
+            <button onclick="loadIncidents()">Load Incidents/change</button>
+            <button onclick="viewMessages()">View Messages</button>
+            <button id="view-statistics-btn">View Statistics</button>
+            <button onclick="logout()">Log out</button>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div id="incidentContent"></div>
+        <p id="placeholder" style="display: none;">Messages will appear here.</p>
+    </div> 
+    
+    <div class="form-container" id="addSeatsFormContainer" style="display: none;">
+        <h2>Create Participant Seats</h2>
+        <form id="addSeatsForm" onsubmit="createParticipantSeats(); return false;">
+            <label for="seatCount">Number of Seats:</label>
+            <input type="number" id="seatCount" name="seatCount" min="1" required><br>
+
+            <label for="volunteer_type">Volunteer Type:</label>
+            <select id="volunteer_type" name="volunteer_type" required>
+                <option value="simple">Simple</option>
+                <option value="driver">Driver</option>
+            </select><br>
+
+            <button type="submit">Create Seats</button>
+        </form>
+    </div>
+    
+    <!-- Public Message Form -->
+    <div class="form-container" id="messageFormContainer" style="display: none;">
+        <h2>Send Message</h2>
+        <form id="messageForm" onsubmit="sendPublicMessage(); return false;">
+            <label for="message_incident_id">Incident ID:</label>
+            <input type="text" id="message_incident_id" name="message_incident_id" readonly><br>
+
+            <label for="message_sender">Sender:</label>
+            <input type="text" id="message_sender" name="message_sender" value="Admin" readonly><br>
+
+            <label for="message_recipient">Recipient:</label>
+            <select id="message_recipient" name="message_recipient" onchange="toggleRecipientOptions()" required>
+                <option value="Public">Public</option>
+                <option value="Other">Other</option>
+            </select><br>
+
+            <!-- Additional Options for "Other" -->
+            <div id="recipientOptions" style="display: none;">
+                <label for="recipient_type">Recipient Type:</label>
+                <select id="recipient_type" name="recipient_type" onchange="toggleRecipientIdField()">
+                    <option value="">Select</option>
+                    <option value="Volunteer">Volunteer</option>
+                    <option value="User">User</option>
+                </select><br>
+
+                <label for="recipient_id" id="recipientIdLabel" style="display: none;">Recipient username:</label>
+                <input type="text" id="recipient_id" name="recipient_id" style="display: none;"><br>
+            </div>
+
+            <label for="message_text">Message:</label>
+            <textarea id="message_text" name="message_text" required></textarea><br>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+    
+    <!-- Incident Edit Form -->
+    <div class="form-container" id="incidentFormContainer" style="display: none;">
+        <h2>Edit Incident</h2>
+        <form id="incidentForm" onsubmit="updateIncident(); return false;">
+            <label for="incident_id">Incident ID:</label>
+            <input type="text" id="incident_id" name="incident_id" readonly><br>
+
+            <label for="incident_type">Type:</label>
+            <select id="incident_type" name="incident_type">
+                <option value="fire">Fire</option>
+                <option value="accident">Accident</option>
+            </select><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea><br>
+
+            <label for="user_phone">User Phone:</label>
+            <input type="text" id="user_phone" name="user_phone"><br>
+
+            <label for="user_type">User Type:</label>
+            <select id="user_type" name="user_type">
+                <option value="admin">Admin</option>
+                <option value="guest">Guest</option>
+                <option value="user">User</option>
+                <option value="volunteer">Volunteer</option>
+            </select><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br>
+
+            <label for="lat">Latitude:</label>
+            <input type="text" id="lat" name="lat"><br>
+
+            <label for="lon">Longitude:</label>
+            <input type="text" id="lon" name="lon"><br>
+
+            <label for="municipality">Municipality:</label>
+            <select id="municipality" name="municipality">
+                <option value="Heraklion">Heraklion</option>
+                <option value="Rethymno">Rethymno</option>
+                <option value="Chania">Chania</option>
+                <option value="Lasithi">Lasithi</option>
+            </select><br>
+
+            <label for="prefecture">Prefecture:</label>
+            <input type="text" id="prefecture" name="prefecture"><br>
+
+            <label for="start_datetime">Start Datetime:</label>
+            <input type="datetime-local" id="start_datetime" name="start_datetime"><br>
+
+            <label for="end_datetime">End Datetime:</label>
+            <input type="datetime-local" id="end_datetime" name="end_datetime"><br>
+
+            <label for="danger">Danger Level:</label>
+            <select id="danger" name="danger">
+                <option value="low">Low</option>
+                <option value="high">High</option>
+            </select><br>
+
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="submitted">Submitted</option>
+                <option value="fake">Fake</option>
+                <option value="running">Running</option>
+                <option value="finished">Finished</option>
+            </select><br>
+
+            <label for="finalResult">Final Result:</label>
+            <input type="text" id="finalResult" name="finalResult"><br>
+
+            <label for="vehicles">Vehicles:</label>
+            <input type="number" id="vehicles" name="vehicles" min="0"><br>
+
+            <label for="firemen">Firemen:</label>
+            <input type="number" id="firemen" name="firemen" min="0"><br>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    
+        <!-- New container for statistics -->
+    <div id="statistics-container" style="display: none; margin-top: 20px;">
+        <h2>Statistics</h2>
+        <div id="incident-chart"></div>
+        <div id="user-volunteer-chart"></div>
+        <div id="participant-chart"></div>
+    </div>
+    
+    <div class="form-container">
+        <h2>Add New Incident</h2>
+        <form id="addIncidentForm" name="addIncidentForm" onsubmit="submitIncidentAdmin(); return false;">
+            <label for="incident_type">Incident Type:</label>
+            <select id="incident_type" name="incident_type" required>
+                <option value="fire">Fire</option>
+                <option value="accident">Accident</option>
+            </select><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br>
+
+            <label for="user_phone">User Phone:</label>
+            <input id="user_phone" type="text" name="user_phone" pattern="\d{10,14}" required><br>
+
+            <label for="user_type">User Type:</label>
+            <input id="user_type" type="text" name="user_type" value="admin" readonly><br>
+
+            <label for="address">Address:</label>
+            <input id="address" type="text" name="address" required><br>
+
+            <label for="lat">Latitude:</label>
+            <input id="lat" type="text" name="lat"><br>
+
+            <label for="lon">Longitude:</label>
+            <input id="lon" type="text" name="lon"><br>
+
+            <label for="municipality">Municipality:</label>
+            <input id="municipality" type="text" name="municipality" required><br>
+
+            <label for="prefecture">Prefecture:</label>
+            <select id="prefecture" name="prefecture" required>
+                <option value="heraklion">Heraklion</option>
+                <option value="chania">Chania</option>
+                <option value="rethymno">Rethymno</option>
+                <option value="lasithi">Lasithi</option>
+            </select><br>
+
+            <label for="start_datetime">Start Datetime:</label>
+            <input id="start_datetime" type="datetime-local" name="start_datetime" required><br>
+
+            <label for="end_datetime">End Datetime:</label>
+            <input id="end_datetime" type="datetime-local" name="end_datetime"><br>
+
+            <label for="danger">Danger Level:</label>
+            <select id="danger" name="danger" required>
+                <option value="low">Low</option>
+                <option value="high">High</option>
+            </select><br>
+
+            <label for="status">Status:</label>
+            <input id="status" type="text" name="status" value="running" readonly><br>
+
+            <label for="finalResult">Final Result:</label>
+            <input id="finalResult" type="text" name="finalResult"><br>
+
+            <label for="vehicles">Number of Vehicles:</label>
+            <input id="vehicles" type="number" name="vehicles" min="0"><br>
+
+            <label for="firemen">Number of Firemen:</label>
+            <input id="firemen" type="number" name="firemen" min="0"><br>
+
+            <button type="submit" class="button">Submit Incident</button>
+        </form>
+    </div>        
+    <footer class="footer-simple">
+        <p><strong>Σελίδα για Πυροσβεστική:</strong> <a href="https://www.fireservice.gr/" target="_blank">fireservice.gr</a></p>
+        <p><strong>Σελίδα για χάρτες πυρκαγιών:</strong> <a href="https://civilprotection.gov.gr/arxeio-imerision-xartwn" target="_blank">civilprotection.gov.gr</a></p>
+        <p><strong>Facebook:</strong><a href="https://www.facebook.com/fireservice.gr/?locale=el_GR" target="_blank"> facebook.com</a> </p>
+    </footer>    
+</body>
+</html>    

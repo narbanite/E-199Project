@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User page</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>User Dashboard</h1>
+        <div class="button-container">
+            <button onclick="viewUserMessages()">View Messages</button>
+            <button onclick="loadIncidentsUser()">Load Running Incidents</button>
+            <button onclick="showNearbyIncidents()">Nearby Incidents</button>
+            <button onclick="loadUser()">Load Info</button>
+            <button onclick="showAddIncidentForm()">Add Incident</button>
+            <button onclick="logout()">Log out</button>
+        </div>
+    </div>
+    
+    <div id="incidentFormContainer" style="display: none;">
+        <h2>Add New Incident</h2>
+        <form id="incidentForm" name="incidentForm" onsubmit="submitIncident(); return false;">
+            <label for="incident_type">Incident Type:</label>
+            <select id="incident_type" name="incident_type">
+                <option value="fire">Fire</option>
+                <option value="accident">Accident</option>
+            </select><br>
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea><br>
+
+            <label for="user_phone">User Phone:</label>
+            <input id="user_phone" type="text" name="user_phone" pattern="\d{10,14}" required><br>
+
+            <label for="user_type">User Type:</label>
+            <input type="text" id="user_type" name="user_type" value="user" readonly><br>
+
+            <label for="new_address">Address:</label>
+            <input id="new_address" type="text" name="new_address" required><br>
+
+            <label for="lat">Latitude (if not known put zero):</label>
+            <input id="lat" type="text" name="lat" required><br>
+
+            <label for="lon">Longitude (if not known put zero):</label>
+            <input id="lon" type="text" name="lon" required><br>
+
+            <label for="new_prefecture">Prefecture:</label>
+            <select id="new_prefecture" name="new_prefecture">
+                <option value="heraklion">Heraklion</option>
+                <option value="chania">Chania</option>
+                <option value="rethymno">Rethymno</option>
+                <option value="lasithi">Lasithi</option>
+            </select><br>
+
+            <label for="new_municipality">Municipality:</label>
+            <input id="new_municipality" type="text" name="new_municipality" required><br>
+
+            <label for="vehicles">Number of Vehicles:</label>
+            <input id="vehicles" type="number" name="vehicles" required><br>
+
+            <label for="firemen">Number of Firemen:</label>
+            <input id="firemen" type="number" name="firemen" required><br>
+
+            <button type="submit" class="button">Submit Incident</button>
+        </form>
+    </div>
+
+    
+   <div class="content-container">
+        <div id="nearbyIncidentContent">
+            <div id="Map" style="height: 300px; width: 380px; display: none;"></div>
+        </div>
+        <div id="userContent"></div>
+        <p id="placeholder" style="display: none;">Messages will appear here.</p>
+   </div> 
+    
+   <div id="userMessageFormContainer" style="display: none;">
+        <h3>Send a Message for Selected Incident</h3>
+        <form id="userMessageForm" onsubmit="sendUserMessage(); return false;">
+            <label for="message_incident_id">Incident ID:</label>
+            <input type="text" id="message_incident_id" name="message_incident_id" readonly><br>
+
+            <label for="user_message">Message:</label><br>
+            <textarea id="user_message" name="user_message" rows="4" cols="50" required></textarea><br>
+
+            <label for="recipient">Recipient:</label><br>
+            <select id="recipient" name="recipient" >
+                <option value="public">Public</option>
+                <option value="admin">Admin</option>
+            </select><br><br>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </div> 
+    
+    <!-- User Info Form -->
+    <div class="form-container">
+        <h2>Επεξεργασία Στοιχείων</h2>
+        <form id="userForm" onsubmit="updateUserInfo(); return false;">
+            <label for="username">Username (Read-Only):</label>
+            <input type="text" id="username" name="username" readonly><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br>
+
+            <label for="email">Email (Read-Only):</label>
+            <input type="email" id="email" name="email" readonly><br>
+
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname"><br>
+
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname"><br>
+
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate"><br>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="other">Other</option>
+            </select><br>
+
+
+            <label for="afm">ΑΦΜ (Read-Only):</label>
+            <input type="text" id="afm" name="afm" readonly><br>
+
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="greece">Greece</option>
+                <option value="usa">USA</option>
+                <option value="uk">UK</option>
+                <option value="germany">Germany</option>
+                <option value="france">France</option>
+            </select><br>
+
+            <label for="prefecture">Prefecture:</label>
+            <select id="prefecture" name="prefecture">
+                <option value="heraklion">Heraklion</option>
+                <option value="chania">Chania</option>
+                <option value="rethymno">Rethymno</option>
+                <option value="lasithi">Lasithi</option>
+            </select><br>
+
+            <label for="municipality">Municipality:</label>
+            <input type="text" id="municipality" name="municipality"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br>
+
+            <label for="job">Job:</label>
+            <input type="text" id="job" name="job"><br>
+
+            <label for="telephone">Telephone (Read-Only):</label>
+            <input type="text" id="telephone" name="telephone" readonly><br>
+
+            <label for="user_lat">Lat:</label>
+            <input type="text" id="user_lat" name="lat"><br>
+
+            <label for="user_lon">Lon:</label>
+            <input type="text" id="user_lon" name="lon"><br>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+    
+    <footer class="footer-simple">
+        <p><strong>Σελίδα για Πυροσβεστική:</strong> <a href="https://www.fireservice.gr/" target="_blank">fireservice.gr</a></p>
+        <p><strong>Σελίδα για χάρτες πυρκαγιών:</strong> <a href="https://civilprotection.gov.gr/arxeio-imerision-xartwn" target="_blank">civilprotection.gov.gr</a></p>
+        <p><strong>Facebook:</strong><a href="https://www.facebook.com/fireservice.gr/?locale=el_GR" target="_blank"> facebook.com</a> </p>
+    </footer>
+    
+   
+</body>
+</html> 

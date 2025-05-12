@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer page</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Volunteer Dashboard</h1>
+        <div class="button-container">
+            <button onclick="loadVolunteerMessages()">View Messages</button>
+            <button onclick="loadIncidentsVolunteer()">Load Running Incidents</button>
+            <button onclick="loadActiveIncidents()">View Requests</button>
+            <button onclick="loadVolunteer()">Load Info</button>
+            <button onclick="loadVolunteerHistory()">History</button>
+            <button onclick="logout()">Log out</button>
+        </div>
+    </div>
+
+    
+  
+    <div class="content-container">
+        <div id="volunteerMessages">
+            <!-- Messages will be dynamically loaded here -->
+        </div>
+        <div id="incidentList"></div>
+        <div id="volunteerContent" class="table-container"></div>
+   </div> 
+    <div id="volunteerMessageFormContainer" style="display: none;">
+        <h3>Send a Message for Selected Incident</h3>
+        <form id="volunteerMessageForm" onsubmit="sendVolunteerMessage(); return false;">
+            <label for="volunteer_message_incident_id">Incident ID:</label>
+            <input type="text" id="volunteer_message_incident_id" name="volunteer_message_incident_id" readonly><br>
+
+            <label for="volunteer_message">Message:</label><br>
+            <textarea id="volunteer_message" name="volunteer_message" rows="4" cols="50" required></textarea><br>
+
+            <label for="recipient">Recipient:</label><br>
+            <select id="recipient" name="recipient" onchange="toggleVolunteerField()">
+                <option value="public">Public</option>
+                <option value="admin">Admin</option>
+                <option value="volunteer">Volunteer</option>
+            </select><br><br>
+
+            <!-- Hidden field for volunteer username -->
+            <div id="volunteerUsernameField" style="display: none;">
+                <label for="volunteer_username">Volunteer Username:</label><br>
+                <input type="text" id="volunteer_username" name="volunteer_username" placeholder="Enter Volunteer Username"><br>
+            </div>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </div>
+
+
+        <!-- Volunteer Info Form -->
+        <div class="form-container">
+            <h2>Επεξεργασία Στοιχείων Εθελοντή</h2>
+            <form id="volunteerForm" onsubmit="updateVolunteerInfo(); return false;">
+                <label for="volunteer_id">Volunteer ID (Read-Only):</label>
+                <input type="text" id="volunteer_id" name="volunteer_id" readonly><br>
+
+                <label for="username">Username (Read-Only):</label>
+                <input type="text" id="username" name="username" readonly><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br>
+
+                <label for="email">Email (Read-Only):</label>
+                <input type="email" id="email" name="email" readonly><br>
+
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="firstname"><br>
+
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" name="lastname"><br>
+
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" id="birthdate" name="birthdate"><br>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="other">Other</option>
+                </select><br>
+
+                <label for="afm">ΑΦΜ (Read-Only):</label>
+                <input type="text" id="afm" name="afm" readonly><br>
+
+                <label for="country">Country:</label>
+                <select id="country" name="country">
+                    <option value="greece">Greece</option>
+                    <option value="usa">USA</option>
+                    <option value="uk">UK</option>
+                    <option value="germany">Germany</option>
+                    <option value="france">France</option>
+                </select><br>
+
+                <label for="prefecture">Prefecture:</label>
+                <select id="prefecture" name="prefecture">
+                    <option value="heraklion">Heraklion</option>
+                    <option value="chania">Chania</option>
+                    <option value="rethymno">Rethymno</option>
+                    <option value="lasithi">Lasithi</option>
+                </select><br>
+
+                <label for="municipality">Municipality:</label>
+                <input type="text" id="municipality" name="municipality"><br>
+
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address"><br>
+
+                <label for="job">Job:</label>
+                <input type="text" id="job" name="job"><br>
+
+                <label for="telephone">Telephone (Read-Only):</label>
+                <input type="text" id="telephone" name="telephone" readonly><br>
+
+                <label for="volunteer_type">Volunteer Type:</label>
+                <input type="text" id="volunteer_type" name="volunteer_type"><br>
+
+                <label for="height">Height:</label>
+                <input type="number" id="height" name="height" step="0.01"><br>
+
+                <label for="weight">Weight:</label>
+                <input type="number" id="weight" name="weight" step="0.01"><br>
+
+                <label for="volunteer_lat">Lat:</label>
+                <input type="text" id="volunteer_lat" name="lat"><br>
+
+                <label for="volunteer_lon">Lon:</label>
+                <input type="text" id="volunteer_lon" name="lon"><br>
+
+                <button type="submit">Save Changes</button>
+            </form>
+     </div>
+    <footer class="footer-simple">
+        <p><strong>Σελίδα για Πυροσβεστική:</strong> <a href="https://www.fireservice.gr/" target="_blank">fireservice.gr</a></p>
+        <p><strong>Σελίδα για χάρτες πυρκαγιών:</strong> <a href="https://civilprotection.gov.gr/arxeio-imerision-xartwn" target="_blank">civilprotection.gov.gr</a></p>
+        <p><strong>Facebook:</strong><a href="https://www.facebook.com/fireservice.gr/?locale=el_GR" target="_blank"> facebook.com</a> </p>
+    </footer>          
+ 
+</body>
+</html> 

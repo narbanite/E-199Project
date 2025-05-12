@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Εγγραφή Χρήστη</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>E-199</h1>
+        <div class="button-container">
+            <button onclick="loadIncidentsGuest()">Load Running Incidents</button>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div id="guestContent"></div>
+   </div>
+    
+    <h2> Δήλωση Περιστατικού </h2>
+    <form id="incidentForm" name="incidentForm" onsubmit="submitIncident(); return false;">
+        <label for="incident_type">Incident Type:</label>
+        <select id="incident_type" name="incident_type" >
+            <option value="fire">Fire</option>
+            <option value="accident">Accident</option>
+        </select><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea><br>
+
+        <label for="user_phone">User Phone:</label>
+        <input id="user_phone" type="text" name="user_phone" pattern="\d{10,14}" required><br>
+
+        <label for="user_type">User Type:</label>
+        <input type="text" id="user_type" name="user_type" value="guest" readonly><br>
+
+        <label for="new_address">Address:</label>
+        <input id="new_address" type="text" name="new_address" required><br>
+
+        <label for="lat">Latitude (if not known put zero):</label>
+        <input id="lat" type="text" name="lat" required><br>
+
+        <label for="lon">Longitude (if not known put zero):</label>
+        <input id="lon" type="text" name="lon" required><br>
+
+        <label for="new_prefecture">Prefecture:</label>
+        <select id="new_prefecture" name="new_prefecture">
+            <option value="heraklion">Heraklion</option>
+            <option value="chania">Chania</option>
+            <option value="rethymno">Rethymno</option>
+            <option value="lasithi">Lasithi</option>
+        </select><br>
+
+        <label for="new_municipality">Municipality:</label>
+        <input id="new_municipality" type="text" name="new_municipality" required><br>
+
+        <label for="vehicles">Number of Vehicles:</label>
+        <input id="vehicles" type="number" name="vehicles" required><br>
+
+        <label for="firemen">Number of Firemen:</label>
+        <input id="firemen" type="number" name="firemen" required><br>
+
+        <button type="submit" class="button">Submit Incident</button>
+    </form>
+    <hr>
+    <div id="response"></div>
+
+    <h2>Φόρμα Εγγραφής</h2>
+    <form id="registerForm" name="registerForm" onsubmit="handleFormSubmission(); return false;" novalidate>
+        <label for="username">Username (τουλάχιστον 8 χαρακτήρες):</label>
+        <input type="text" id="username" name="username" pattern="[A-Za-z][A-Za-z0-9_]{7,}" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <!--PASSWORD VISIBILITY AND STRENGTH-->
+        <label for="password">Κωδικός Χρήστη:</label>
+        <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,18}" required>
+        <button type="button" onclick="togglePasswordVisibility()">Show/Hide Password</button>
+        <button type="button" onclick="checkPasswordStrength()">See Password Strength</button><br>
+        
+
+        <label for="confirm-password">Επιβεβαίωση Κωδικού:</label>
+        <input type="password" id="confirm-password" name="confirm_password" required>
+        <button type="button" onclick="togglePasswordVisibility()">Show/Hide Password</button><br>
+        
+        <div id="password-strength"></div>
+        <div id="password-error"></div>
+        
+
+        <label for="firstname">Όνομα:</label>
+        <input type="text" id="firstname" name="firstname" minlength="3" maxlength="30" required><br>
+
+        <label for="lastname">Επώνυμο:</label>
+        <input type="text" id="lastname" name="lastname" minlength="3" maxlength="30" required><br>
+
+        <label for="birthdate">Ημερομηνία Γέννησης:</label>
+        <input type="date" id="birthdate" name="birthdate" min="1920-01-01" max="2011-12-31" value="1980-01-01" required><br>
+
+        <label>Φύλο:</label>
+        <label for="male">
+            <input type="radio" id="male" name="gender" value="male" title="Select if you are male" required> Άντρας
+        </label>
+        <label for="female">
+            <input type="radio" id="female" name="gender" value="female" title="Select if you are female"> Γυναίκα
+        </label>
+        <label for="other">
+            <input type="radio" id="other" name="gender" value="other" title="Select if you prefer other"> Άλλο
+        </label>
+        
+        <label for="afm">ΑΦΜ:</label>
+        <input type="text" id="afm" name="afm" pattern="\d{10}" required><br>
+
+        <label for="country">Χώρα:</label>
+        <select id="country" name="country">
+            <option value="greece" selected>Ελλάδα</option>
+            <option value="usa">Ηνωμένες Πολιτείες</option>
+            <option value="uk">Ηνωμένο Βασίλειο</option>
+            <option value="germany">Γερμανία</option>
+            <option value="france">Γαλλία</option>
+        </select><br>
+
+        <label for="prefecture">Νομός:</label>
+        <select id="prefecture" name="prefecture">
+            <option value="heraklion">Ηράκλειο</option>
+            <option value="chania">Χανιά</option>
+            <option value="rethymno">Ρέθυμνο</option>
+            <option value="lasithi">Λασίθι</option>
+        </select><br>
+
+        <label for="municipality">Δήμος Διαμονής:</label>
+        <input type="text" id="municipality" name="municipality" minlength="3" maxlength="30" required><br>
+
+        <label for="address">Διεύθυνση Οικίας:</label>
+        <input type="text" id="address" name="address" minlength="10" maxlength="150" required><br>
+        <!--ADDRESS VERIFICATION-->
+        <button type="button" onclick="verifyAddress()">Επαλήθευση Διεύθυνσης</button>
+        <div id="address-error"></div><br>
+
+        <!-- OSM -->
+        <div id="Map" style="height:300px; width:380px; display:none;"></div>
+        <script src="https://www.openlayers.org/api/OpenLayers.js"></script>
+
+        <label for="telephone">Κινητό Τηλέφωνο:</label>
+        <input type="text" id="telephone" name="telephone" pattern="\d{10,14}" required><br>
+
+        <label for="job">Επάγγελμα:</label>
+        <input type="text" id="job" name="job" minlength="3" maxlength="30" required><br>
+
+        <!-- Radio Button for Simple User -->
+        <label for="simple_user">
+            <input type="radio" id="simple_user" name="type" value="simple_user" required onclick="toggleVolunteerFields(false)"> Απλός Χρήστης
+        </label>
+
+        <!-- Radio Button for Volunteer Firefighter -->
+        <label for="volunteer_firefighter">
+            <input type="radio" id="volunteer_firefighter" name="type" value="volunteer_firefighter" required onclick="toggleVolunteerFields(true)"> Εθελοντής Πυροσβέστης
+        </label>
+        <br>
+
+        <!-- Volunteer-Specific Fields -->
+        <div id="volunteer-fields" style="display: none;">
+            <label for="volunteer_type">Κατηγορία:</label>
+            <select id="volunteer_type" name="volunteer_type">
+                <option value="simple">Μάχιμοι Εθελοντές πυροσβέστες</option>
+                <option value="driver">Οδηγοί-Χειριστές Πυροσβεστικών οχημάτων</option>
+            </select><br>
+
+            <label for="height">Ύψος (cm):</label>
+            <input type="number" id="height" name="height" min="145" max="220" required><br>
+
+            <label for="weight">Βάρος (kg):</label>
+            <input type="number" id="weight" name="weight" min="40" max="160" required><br>
+        </div>
+
+
+
+        <label id="terms-label" for="terms">Συμφωνώ με τους όρους χρήσης:</label>
+        <input type="checkbox" id="terms" name="terms" required><br>
+
+        <button type="submit">Εγγραφή</button>
+    </form>
+    
+    <hr>
+    
+    <h2>User Login</h2>
+        <form id="loginForm" name="loginForm" onsubmit='loginPOST();return false;'>
+            <label for="username">username:</label><br>
+            <input type="text"  id="username_log" name="username" required><br>
+            <label for="password">password:</label><br>
+            <input type="password"  name="password" id="password_log" required><br><br>
+            
+            <button type="submit">Login</button>
+        </form>
+
+    <div id="json-output"></div>
+    <script src="https://openlayers.org/api/OpenLayers.js"></script>
+    <script src="js/script.js" defer></script>
+
+    
+    <footer class="footer-simple">
+        <p><strong>Σελίδα για Πυροσβεστική:</strong> <a href="https://www.fireservice.gr/" target="_blank">fireservice.gr</a></p>
+        <p><strong>Σελίδα για χάρτες πυρκαγιών:</strong> <a href="https://civilprotection.gov.gr/arxeio-imerision-xartwn" target="_blank">civilprotection.gov.gr</a></p>
+        <p><strong>Facebook:</strong><a href="https://www.facebook.com/fireservice.gr/?locale=el_GR" target="_blank"> facebook.com</a> </p>
+    </footer>
+    
+</body>
+
+</html>
